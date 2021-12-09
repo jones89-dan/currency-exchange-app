@@ -1,24 +1,24 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
+import Home from './Home.js';
 
-function App() {
+const NotFound = () => {
+  return <h2>404 Not Found</h2>;
+}
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link className="navbar-brand" to="/">Currency Finder</Link>
+      </nav>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
