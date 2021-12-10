@@ -49,24 +49,23 @@ class CurrencyFinder extends React.Component {
       return;
     }
 
-    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${searchTerm}`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        if (data.Response === 'False') {
-          throw new Error(data.Error);
-        }
 
-        if (data.Response === 'True' && data.Search) {
-          console.log(data);
-          this.setState({ results: data.Search, error: '' });
-        }
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      })
-  }
+
+
+    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${searchTerm}`).then((response) => {
+        if (response.ok) {
+    // .ok returns true if response status is 200-299
+        return response.json();
+      }
+      throw new Error('Request was either a 404 or 500');
+    }).then((data) => {
+      console.log('json data', data);
+  // do what you need to do with the data returned
+  }).catch((error) => {
+    console.log(error);
+    // deal with the error
+  })
+}
 
   render() {
     const { searchTerm, results, error } = this.state;
