@@ -49,7 +49,7 @@ class CurrencyFinder extends React.Component {
       return;
     }
 
-    fetch('https://altexchangerateapi.herokuapp.com/latest?from=$USD')
+    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${searchTerm}`)
       .then(checkStatus)
       .then(json)
       .then((data) => {

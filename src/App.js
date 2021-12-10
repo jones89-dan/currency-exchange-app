@@ -15,7 +15,7 @@ const App = () => {
         <Link className="navbar-brand" to="/">Currency Finder</Link>
       </nav>
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/" exact component={Home} />
         <Route component={NotFound} />
       </Switch>
     </Router>
