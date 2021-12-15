@@ -4,21 +4,19 @@ import { json, checkStatus } from './utils';
 
 const Currency = (props) => {
   const {
-    Amount,
-    Base,
-    Date,
-    Rates,
-
+    amount,
+    base,
+    date,
   } = props.currency;
 
   return (
     <div className="row">
-      <div className="col-4 col-md-2 col-lg-1 mb-3">
-        <h4>{Amount}</h4>
-        <h4>{Base}</h4>
-        <h4>{Date}</h4>
-      </div>
+
       <div className="col-8 col-md-10 col-lg-11 mb-3">
+      <h4>{amount}</h4>
+      <h4>{base}</h4>
+      <h4>{date}</h4>
+
       </div>
     </div>
   )
@@ -59,8 +57,16 @@ class CurrencyFinder extends React.Component {
       }
       throw new Error('Request was either a 404 or 500');
     }).then((data) => {
-      console.log('json data', data);
+    //  console.log('json data', data);
   // do what you need to do with the data returned
+    if (data.Response === 'False') {
+      throw new Error(data.Error);
+    }
+
+    if (data.Response === 'True' && data.Search) {
+      console.log('json data', data);
+      this.setState({ results: data.Search, error: '' });
+    }
   }).catch((error) => {
     console.log(error);
     // deal with the error
@@ -89,7 +95,7 @@ class CurrencyFinder extends React.Component {
                 return error;
               }
               return results.map((currency) => {
-                return <Currency key={currency.Base} currency={currency} />;
+                return <Currency key={currency.base} currency={currency} />;
               })
             })()}
           </div>
